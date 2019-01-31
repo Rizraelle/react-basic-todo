@@ -69,14 +69,30 @@ export const StyledItem = styled.div`
   display: flex;
   flex-wrap: nowrap;
   justify-content: space-between;
-  align-content: center;
+  align-items: center;
 `;
 
-export const StyledDeleteIcon = styled.div`
+export const StyledText = styled.div`
+  display: flex;
+  flex-wrap: nowrap;
+  justify-content: flex-center;
+  align-items: center;
+  width: 100%;
+`;
+
+export const StyledIcon = styled.div`
   border: 2px solid #fff;
   font-size: 20px;
   height: 30px;
+  width: 30px;
   min-width: 30px;
   margin-left: 20px;
   cursor: pointer;
+`;
+
+export const StyledWrapper = styled.div`
+  display: flex;
+  flex-wrap: nowrap;
+  justify-content: center;
+  align-items: center;
 `;

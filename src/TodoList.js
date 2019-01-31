@@ -1,20 +1,18 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { StyledList, StyledItem, StyledDeleteIcon } from './styled';
+import TodoItem from './TodoItem';
+import { StyledList } from './styled';
 
-const TodoList = ({ todos, deleteTodo }) => (
+const TodoList = ({ todos, deleteTodo, editTodo }) => (
   <StyledList>
-    {todos.map((item, id) => (
-      <StyledItem key={item.id}>
-        {item.text}
-        <StyledDeleteIcon
-          onClick={() => {
-            deleteTodo(id);
-          }}
-        >
-          x
-        </StyledDeleteIcon>
-      </StyledItem>
+    {todos.map(item => (
+      <TodoItem
+        key={item.id}
+        id={item.id}
+        text={item.text}
+        deleteTodo={deleteTodo}
+        editTodo={editTodo}
+      />
     ))}
   </StyledList>
 );
@@ -26,6 +24,7 @@ TodoList.propTypes = {
     }),
   ).isRequired,
   deleteTodo: PropTypes.func.isRequired,
+  editTodo: PropTypes.func.isRequired,
 };
 
 export default TodoList;

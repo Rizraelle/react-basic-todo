@@ -1,9 +1,12 @@
 import React, { Component } from 'react';
 import './App.css';
+import { library } from '@fortawesome/fontawesome-svg-core';
+import { faTrash, faEdit, faCheck } from '@fortawesome/free-solid-svg-icons';
 import TodoForm from './TodoForm';
 import TodoList from './TodoList';
-import TodoEdit from './TodoEdit';
 import { StyledHeader, StyledContainer } from './styled';
+
+library.add(faTrash, faEdit, faCheck);
 
 const nanoid = require('nanoid');
 
@@ -22,11 +25,20 @@ class App extends Component {
 
   deleteTodo = id => {
     this.setState({
-      todos: this.state.todos.filter((_, i) => i !== id),
+      todos: this.state.todos.filter(item => item.id !== id),
     });
   };
 
-  editTodo = text => {};
+  editTodo = ({ text, id }) => {
+    this.setState({
+      todos: this.state.todos.map(item => {
+        if (item.id === id) {
+          item.text = text;
+        }
+        return item;
+      }),
+    });
+  };
 
   render() {
     return (
