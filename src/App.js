@@ -15,25 +15,28 @@ class App extends Component {
     todos: [],
   };
 
-  addTodo = text => {
+  addTodo = (text) => {
+    const { todos } = this.state;
     if (text.length > 0) {
       this.setState({
-        todos: [...this.state.todos, { text, id: `item ${nanoid()}` }],
+        todos: [...todos, { text, id: `item ${nanoid()}` }],
       });
     }
   };
 
-  deleteTodo = id => {
+  deleteTodo = (id) => {
+    const { todos } = this.state;
     this.setState({
-      todos: this.state.todos.filter(item => item.id !== id),
+      todos: todos.filter(item => item.id !== id),
     });
   };
 
   editTodo = ({ text, id }) => {
+    const { todos } = this.state;
     this.setState({
-      todos: this.state.todos.map(item => {
+      todos: todos.map((item) => {
         if (item.id === id) {
-          item.text = text;
+          return { id, text };
         }
         return item;
       }),
@@ -41,11 +44,12 @@ class App extends Component {
   };
 
   render() {
+    const { todos } = this.state;
     return (
       <StyledContainer>
         <StyledHeader>Todo List</StyledHeader>
         <TodoForm addTodo={this.addTodo} />
-        <TodoList todos={this.state.todos} deleteTodo={this.deleteTodo} editTodo={this.editTodo} />
+        <TodoList todos={todos} deleteTodo={this.deleteTodo} editTodo={this.editTodo} />
       </StyledContainer>
     );
   }

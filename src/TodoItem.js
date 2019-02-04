@@ -1,9 +1,18 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { StyledItem, StyledText, StyledIcon, StyledInput, StyledWrapper } from './styled';
+import {
+  StyledItem, StyledText, StyledIcon, StyledInput, StyledWrapper,
+} from './styled';
 
 class TodoItem extends Component {
+  static propTypes = {
+    editTodo: PropTypes.func.isRequired,
+    deleteTodo: PropTypes.func.isRequired,
+    id: PropTypes.string.isRequired,
+    text: PropTypes.string.isRequired,
+  };
+
   constructor(props) {
     super(props);
     this.state = {
@@ -12,31 +21,34 @@ class TodoItem extends Component {
     this.input = React.createRef();
   }
 
-  setEditState(isEditing) {
+  setEditState() {
     this.setState({
       isEditing: true,
     });
   }
 
-  onEditSubmit = event => {
-    const { editTodo } = this.props;
+  onEditSubmit = () => {
+    const { editTodo, id } = this.props;
     this.setState({
       isEditing: false,
     });
-    editTodo({ text: this.input.value, id: this.props.id });
+    editTodo({ text: this.input.value, id });
   };
 
   render() {
     const { isEditing } = this.state;
+    const { deleteTodo } = this.props;
+    const { text } = this.props;
+    const { id } = this.props;
     return (
       <StyledItem>
         <StyledText>
-          {this.props.text}
+          {text}
           {isEditing && (
             <StyledWrapper>
               <StyledInput
-                defaultValue={this.props.text}
-                ref={value => {
+                defaultValue={text}
+                ref={(value) => {
                   this.input = value;
                 }}
                 autoFocus
@@ -56,7 +68,7 @@ class TodoItem extends Component {
         </StyledIcon>
         <StyledIcon
           onClick={() => {
-            this.props.deleteTodo(this.props.id);
+            deleteTodo(id);
           }}
         >
           <FontAwesomeIcon icon="trash" />
@@ -65,11 +77,5 @@ class TodoItem extends Component {
     );
   }
 }
-
-TodoItem.propTypes = {
-  handleEdit: PropTypes.func,
-  id: PropTypes.string,
-  text: PropTypes.string,
-};
 
 export default TodoItem;
