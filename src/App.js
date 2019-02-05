@@ -12,34 +12,31 @@ const nanoid = require('nanoid');
 
 class App extends Component {
   state = {
-    todos: [],
+    todos: {},
   };
 
   addTodo = (text) => {
     const { todos } = this.state;
+    const itemId = `item ${nanoid()}`;
     if (text.length > 0) {
       this.setState({
-        todos: [...todos, { text, id: `item ${nanoid()}` }],
+        todos: { ...todos, [itemId]: { text, id: itemId } },
       });
     }
   };
 
   deleteTodo = (id) => {
     const { todos } = this.state;
+    delete todos[id];
     this.setState({
-      todos: todos.filter(item => item.id !== id),
+      todos,
     });
   };
 
   editTodo = ({ text, id }) => {
     const { todos } = this.state;
     this.setState({
-      todos: todos.map((item) => {
-        if (item.id === id) {
-          return { id, text };
-        }
-        return item;
-      }),
+      todos: { ...todos, [id]: { id, text } },
     });
   };
 

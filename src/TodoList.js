@@ -5,7 +5,7 @@ import { StyledList } from './styled';
 
 const TodoList = ({ todos, deleteTodo, editTodo }) => (
   <StyledList>
-    {todos.map(item => (
+    {Object.values(todos).map(item => (
       <TodoItem
         key={item.id}
         id={item.id}
@@ -18,7 +18,7 @@ const TodoList = ({ todos, deleteTodo, editTodo }) => (
 );
 
 TodoList.propTypes = {
-  todos: PropTypes.arrayOf(
+  todos: PropTypes.objectOf(
     PropTypes.shape({
       text: PropTypes.string,
     }),
