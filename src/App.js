@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import './App.css';
 import { library } from '@fortawesome/fontawesome-svg-core';
 import { faTrash, faEdit, faCheck } from '@fortawesome/free-solid-svg-icons';
+import SimpleStorage from 'react-simple-storage';
 import TodoForm from './TodoForm';
 import TodoList from './TodoList';
 import { StyledHeader, StyledContainer } from './styled';
@@ -44,6 +45,7 @@ class App extends Component {
     const { todos } = this.state;
     return (
       <StyledContainer>
+        <SimpleStorage parent={this} />
         <StyledHeader>Todo List</StyledHeader>
         <TodoForm addTodo={this.addTodo} />
         <TodoList todos={todos} deleteTodo={this.deleteTodo} editTodo={this.editTodo} />

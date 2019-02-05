@@ -81,8 +81,12 @@ export const StyledText = styled.div`
 `;
 
 export const StyledIcon = styled.div`
+  display: flex;
+  flex-wrap: nowrap;
+  justify-content: center;
+  align-items: center;
   border: 2px solid #fff;
-  font-size: 20px;
+  font-size: 18px;
   height: 30px;
   width: 30px;
   min-width: 30px;
